@@ -1,0 +1,107 @@
+# The plugin configuration file
+# Before you do anything, make sure to finish the to-do list
+
+# To-do:
+# review databaseConnection.connectionString
+# change databaseConnection.username
+# change databaseConnection.password
+
+cheese.loc:
+  stuff: yes
+teams:
+# - team_name (Should match up with your luckperms team name)
+  red:
+    color: "#00FFFF"
+    icon: ""
+  blu:
+    color: "#00FFFF"
+    icon: ""
+    spawn:
+      world: world
+      x: 100.0
+      y: 200.0
+      z: 100.0
+
+phases:
+  # Updates on shutdown of server
+  current: pre-event
+  order:
+    pre-event: # You can name this anything (this will be displayed)
+      time: null # In seconds, but if null it will only advance once /civ adv is run
+      startMsg: Welcome to the event # Optional
+      endMsg: Starting soon # Optional
+
+    genesis:
+      time: 600 # Make sure to change these
+      startMsg: The event has started! Gather resources
+      startTitle:
+        top: The event has started!
+        bottom: Who will win?
+        times:
+          fadeIn: 10 # Milliseconds
+          stay: 100
+          fadeOut: 10
+      endTitle:
+
+
+      endMsg:
+      advanceCmd: # The commands ran once /civ adv ends this phase, also optional
+        - civ tp team red
+        - civ tp team blu
+
+    town building:
+      time: 600
+      startTitle:
+
+
+
+
+#player.showTitle(
+#Title.title(
+#Component.text("Take off the crown", ComponentColor.DARK_RED),
+#Component.text("You are not worthy", ComponentColor.GRAY),
+#Title.Times.times(Duration.ZERO, Duration.ofMillis(700), Duration.ofMillis(300)
+#)
+#)
+#)
+
+
+
+
+
+# Mysql database connection settings
+databaseConnection:
+  # Format: 'jdbc:mysql://{ADDRESS}:{{PORT}}?serverTimezone=UTC'
+  connectionString: 'jdbc:mysql://localhost:3306?serverTimezone=UTC'
+
+  # Credentials to your database
+  username: root
+  password: admin
+
+# ---------------------------- NOT CONFIGURATION ---------------------------- #
+# Below this point, this is where the plugin stores data and constants        #
+# PLEASE DO NOT EDIT UNLESS YOU KNOW WHAT YOU ARE DOING                       #
+# --------------------------------------------------------------------------- #
+status:
+  databaseInitialized: true
+
+constants:
+  databaseInitCommand:
+    CREATE DATABASE civilization;
+    CREATE TABLE civilization.`player`(
+    `uuid` BINARY(16) NOT NULL,
+    `team_uuid` BINARY(16)
+    );
+    ALTER TABLE
+    civilization.`player` ADD PRIMARY KEY `player_uuid_primary`(`uuid`);
+    CREATE TABLE civilization.`team`(
+    `uuid` BINARY(16) NOT NULL,
+    `name` VARCHAR(255) NOT NULL,
+    `king` BINARY(16),
+    `friendly_fire` BOOLEAN NOT NULL
+    );
+    ALTER TABLE
+    civilization.`team` ADD PRIMARY KEY `team_uuid_primary`(`uuid`);
+    ALTER TABLE
+    civilization.`player` ADD CONSTRAINT `player_team_uuid_foreign` 
+    FOREIGN KEY(`team_uuid`) REFERENCES civilization.`team`(`uuid`);

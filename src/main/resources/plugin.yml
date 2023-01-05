@@ -1,0 +1,76 @@
+name: Civilization
+version: '${project.version}'
+main: com.opraion.civilization.CivMain
+libraries:
+  - "org.jetbrains.kotlin:kotlin-stdlib:1.7.22"
+depend:
+  - LuckPerms
+api-version: 1.19
+authors: [ DynamicCake ]
+description: The civilization experiment plugin
+commands:
+
+  civilization:
+    description: The team command but for civilizations
+    aliases:
+      - civ
+    permission: "civ.cmd.civ"
+    permission-message: "&4You do not have permission to execute this command"
+
+  summoncrown:
+    description: Gives the king a crown
+    aliases:
+      - givecrown
+    permission: "civ.cmd.summoncrown"
+    permission-message: "&4You do not have permission to execute this command"
+
+permissions:
+
+  "civ.*":
+    description: The wildcard permission
+    default: op
+    children:
+      - "civ.cmd.*"
+
+  "civ.cmd.*":
+    description: The wildcard permission for commands
+    default: op
+    children:
+      - "civ.cmd.civ.*"
+      - "civ.cmd.summoncrown"
+
+  "civ.cmd.civ.*":
+    description: The wildcard permission for the parent command civilization
+    default: op
+    children:
+      - "civ.cmd.civ.help"
+      - "civ.cmd.civ.join"
+      - "civ.cmd.civ.update"
+      - "civ.cmd.civ.reload"
+      - "civ.cmd.civ.synchronize"
+
+
+
+  "civ.cmd.civ.help":
+    description: Allows the user to execute the sub command /civilization help
+    default: op
+
+  "civ.cmd.civ.join":
+    description: Allows the user to execute the sub command /civilization join
+    default: op
+
+  "civ.cmd.civ.update":
+    description: Allows the user to execute the sub command /civilization update
+    default: op
+
+  "civ.cmd.civ.reload":
+    description: Allows the user to execute the sub command /civilization reload
+    default: op
+
+  "civ.cmd.civ.synchronize":
+    description: Allows the user to execute the sub command /civilization synchronize
+    default: op
+
+  "civ.cmd.summoncrown":
+    description: Allows the user to execute the sub command /summoncrown
+    default: true
